@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Check-in</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, system-ui, sans-serif; background-color: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 15px; }
+        .card { background: white; width: 100%; max-width: 450px; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #4b4f56; font-size: 14px; }
+        input[type="text"], select { width: 100%; padding: 12px; border: 1px solid #dddfe2; border-radius: 8px; font-size: 16px; background-color: #f5f6f7; }
+        .row-flex { display: flex; gap: 10px; }
+        .row-flex > div:first-child { flex: 2; }
+        .row-flex > div:last-child { flex: 3; }
+        .radio-row { display: flex; background: #f5f6f7; padding: 5px; border-radius: 10px; gap: 5px; }
+        .radio-row label { flex: 1; text-align: center; margin: 0; padding: 10px; cursor: pointer; border-radius: 8px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+        .radio-row input { display: none; }
+        .radio-row input:checked + span { background: white; color: #007bff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%; padding: 8px; border-radius: 6px; display: inline-block; width: 100%; }
+        .btn-container { display: flex; gap: 12px; margin-top: 30px; }
+        .btn { flex: 1; border: none; padding: 14px; border-radius: 10px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-wa { background-color: #25D366; }
+        .btn-sms { background-color: #007AFF; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 style="text-align:center"><i class="fa-solid fa-car-side"></i> Service Check-in</h2>
+
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="name" placeholder="Your Name">
+    </div>
+
+    <div class="form-group">
+        <label>Vehicle Brand & Plate/VIN</label>
+        <div class="row-flex">
+            <div>
+                <select id="brand">
+                    <option value="Ford">Ford</option><option value="Toyota">Toyota</option>
+                    <option value="Honda">Honda</option><option value="GMC">GMC</option>
+                    <option value="Ram">Ram</option><option value="Chevrolet">Chevrolet</option>
+                    <option value="Tesla">Tesla</option><option value="Hyundai">Hyundai</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div>
+                <input type="text" id="vin" placeholder="Plate / VIN">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Service Type</label>
+        <div class="radio-row">
+            <label><input type="radio" name="service" value="New Drop-off" checked><span>New Drop-off</span></label>
+            <label><input type="radio" name="service" value="Pick-up"><span>Pick-up</span></label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Called in advance?</label>
+        <div class="radio-row">
+            <label><input type="radio" name="called" value="Yes"><span>Yes</span></label>
+            <label><input type="radio" name="called" value="No" checked><span>No</span></label>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button type="button" class="btn btn-wa" id="btnWa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button type="button" class="btn btn-sms" id="btnSms"><i class="fa-solid fa-comment-sms"></i> SMS</button>
+    </div>
+</div>
+
+<script>
+    // 使用 DOMContentLoaded 確保網頁加載完畢後才執行腳本
+    document.addEventListener('DOMContentLoaded', function() {
+        const phone = "16477682426";
+
+        function handleSend(type) {
+            const name = document.getElementById('name').value || "Guest";
+            const brand = document.getElementById('brand').value;
+            const vin = document.getElementById('vin').value || "N/A";
+            const service = document.querySelector('input[name="service"]:checked').value;
+            const called = document.querySelector('input[name="called"]:checked').value;
+
+            // 構建訊息內容，加入換行
+            let message = `New Client Request:\n- Name: ${name}\n- Vehicle: ${brand} (${vin})\n- Type: ${service}\n- Called: ${called}`;
+            let encodedMsg = encodeURIComponent(message);
+
+            if (type === 'wa') {
+                // 發送到 WhatsApp
+                window.location.href = `https://wa.me/${phone}?text=${encodedMsg}`;
+            } else {
+                // 發送到 SMS (加拿大手機通用格式)
+                window.location.href = `sms:+${phone}?body=${encodedMsg}`;
+            }
+        }
+
+        // 綁定點擊事件
+        document.getElementById('btnWa').addEventListener('click', function() {
+            handleSend('wa');
+        });
+
+        document.getElementById('btnSms').addEventListener('click', function() {
+            handleSend('sms');
+        });
+    });
+</script>
+
+</body>
+</html>
