@@ -65,7 +65,7 @@
         <label>Called in advance?</label>
         <div class="radio-row">
             <label><input type="radio" name="called" value="Yes"><span>Yes</span></label>
-            <label><input type="radio" name="called" value="No" checked><span>No</span></label>
+            <label><input type="radio" name="called" value="No"><span>No</span></label>
         </div>
     </div>
 
@@ -88,7 +88,7 @@
             const called = document.querySelector('input[name="called"]:checked').value;
 
             // 構建訊息內容，加入換行
-            let message = `New Client Request:\n- Name: ${name}\n- Vehicle: ${brand} (${vin})\n- Type: ${service}\n- Called: ${called}`;
+            let message = `Hi KC This is \n- ${name}\n- for Vehicle: ${brand} (${vin})\n- Type: ${service}\n- Called: ${called}`;
             let encodedMsg = encodeURIComponent(message);
 
             if (type === 'wa') {
