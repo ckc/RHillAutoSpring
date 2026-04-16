@@ -36,27 +36,26 @@
     </div>
 
     <div class="form-group">
-        <label>Vehicle Brand & Plate/VIN</label>
+        <label>Your Vehicle details like Brand/License Plate...etc.</label>
         <div class="row-flex">
             <div>
                 <select id="brand">
-                    <option value="Ford">Ford</option><option value="Toyota">Toyota</option>
-                    <option value="Honda">Honda</option><option value="GMC">GMC</option>
-                    <option value="Ram">Ram</option><option value="Chevrolet">Chevrolet</option>
-                    <option value="Tesla">Tesla</option><option value="Hyundai">Hyundai</option>
+                    <option value="Ford">Ford</option>
+                    <option value="GMC">GMC</option>
+                    <option value="Ram">Ram</option>
+                    <option value="Chevrolet">Chevrolet</option>
                     <option value="Other">Other</option>
                 </select>
             </div>
             <div>
-                <input type="text" id="vin" placeholder="Plate / VIN">
+                <input type="text" id="vin" placeholder="License Plate etc.">
             </div>
         </div>
     </div>
 
     <div class="form-group">
-        <label>Service Type</label>
         <div class="radio-row">
-            <label><input type="radio" name="service" value="New Drop-off" checked><span>New Drop-off</span></label>
+            <label><input type="radio" name="service" value="New Drop-off"><span>New Drop-off</span></label>
             <label><input type="radio" name="service" value="Pick-up"><span>Pick-up</span></label>
         </div>
     </div>
@@ -88,14 +87,14 @@
             const called = document.querySelector('input[name="called"]:checked').value;
 
             // 構建訊息內容，加入換行
-            let message = `Hi KC This is \n- ${name}\n- for Vehicle: ${brand} (${vin})\n- Type: ${service}\n- Called: ${called}`;
+            let message = `Hi KC, this is ${name}\n- for ${brand} (${vin})\n- Type: ${service}\n- Called: ${called}`;
             let encodedMsg = encodeURIComponent(message);
 
             if (type === 'wa') {
                 // Send WhatsApp
                 window.location.href = `https://wa.me/${phone}?text=${encodedMsg}`;
             } else {
-                // Send SMS (加拿大手機通用格式)
+                // Send SMS 
                 window.location.href = `sms:+${phone}?body=${encodedMsg}`;
             }
         }
