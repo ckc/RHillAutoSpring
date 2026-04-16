@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Check-in</title>
+    <title>Richmond Hill Auto Spring - ckc.im</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * { box-sizing: border-box; }
@@ -28,7 +28,7 @@
 <body>
 
 <div class="card">
-    <h2 style="text-align:center"><i class="fa-solid fa-car-side"></i> Service Check-in</h2>
+    <h2 style="text-align:center"><i class="fa-solid fa-car-side"></i> Richmond Hill Auto Spring</h2>
 
     <div class="form-group">
         <label>Name</label>
@@ -92,15 +92,15 @@
             let encodedMsg = encodeURIComponent(message);
 
             if (type === 'wa') {
-                // 發送到 WhatsApp
+                // Send WhatsApp
                 window.location.href = `https://wa.me/${phone}?text=${encodedMsg}`;
             } else {
-                // 發送到 SMS (加拿大手機通用格式)
+                // Send SMS (加拿大手機通用格式)
                 window.location.href = `sms:+${phone}?body=${encodedMsg}`;
             }
         }
 
-        // 綁定點擊事件
+        // 綁定click event
         document.getElementById('btnWa').addEventListener('click', function() {
             handleSend('wa');
         });
