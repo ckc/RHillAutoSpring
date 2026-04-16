@@ -87,7 +87,7 @@
             const called = document.querySelector('input[name="called"]:checked').value;
 
             // 構建訊息內容，加入換行
-            let message = `Hi KC, this is ${name}\n- for ${brand} (${vin})\n- Type: ${service}\n- Called: ${called}`;
+            let message = `Hi KC, this is ${name}\n- for ${brand} (${vin})\n- ${service}\n- Called: ${called}`;
             let encodedMsg = encodeURIComponent(message);
 
             if (type === 'wa') {
